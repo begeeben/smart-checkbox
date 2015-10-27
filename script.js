@@ -1,9 +1,17 @@
 'use strict';
 /* global KeyEvent */
 
-window.SmartButton = (function(win) {
-  // Extend from the HTMLButtonElement prototype
-  var proto = Object.create(HTMLButtonElement.prototype);
+window.SmartCheckboxElement = (function(window) {
+
+  var template = document.createElement('template');
+
+  template.innerHTML =
+    `<input type="checkbox" id="smart-checkbox" ></input>
+     <label for="smart-checkbox"></label>
+     <span data-l10n-id="fxsync-collections-bookmarks"></span>`;
+
+  // Extend from the HTMLInputElement prototype
+  var proto = Object.create(HTMLInputElement.prototype);
 
   proto.createdCallback = function() {
     this.addEventListener('mousedown', this);
@@ -58,5 +66,5 @@ window.SmartButton = (function(win) {
   };
 
   // Register and return the constructor
-  return document.registerElement('smart-button', { prototype: proto });
+  return document.registerElement('smart-checkbox', { prototype: proto });
 })(window);
