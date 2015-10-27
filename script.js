@@ -6,27 +6,24 @@ window.SmartCheckboxElement = (function(window) {
   var template = document.createElement('template');
 
   template.innerHTML =
-    `<input type="checkbox" id="smart-checkbox" ></input>
-     <label for="smart-checkbox"></label>
-     <span data-l10n-id="fxsync-collections-bookmarks"></span>`;
+    `
+      <div id="default"></div>
+      <content>
+      </content>
+    `;
 
   // Extend from the HTMLInputElement prototype
   var proto = Object.create(HTMLInputElement.prototype);
 
   proto.createdCallback = function() {
-    this.addEventListener('mousedown', this);
-    this.addEventListener('mouseup', this);
-    this.addEventListener('touchstart', this);
-    this.addEventListener('touchend', this);
-    this.addEventListener('keydown', this);
-    this.addEventListener('keyup', this);
-    this.addEventListener('focus', this);
-    this.addEventListener('blur', this);
-    this.addEventListener('transitionend', this);
+    this.createShadowRoot();
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    // this.type = 'checkbox';
     this.tabIndex = 0;
   };
 
   proto.handleEvent = function(evt) {
+    console.log(e);
     switch(evt.type) {
       case 'mousedown':
       case 'touchstart':
